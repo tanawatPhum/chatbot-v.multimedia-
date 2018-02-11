@@ -1,0 +1,36 @@
+
+  <ion-slides>
+      <ion-slide>
+          <ion-card style="box-shadow:none">
+              <img style="height:25vh;width:100%" src="assets/img/hamburger.jpg"/>
+              <ion-card-content>
+                <ion-card-title>
+                  แฮมเบอร์เกอร์
+                  </ion-card-title>
+                <p>
+              แฮมเบอร์เกอร์หมู 1 ชิ้น ราคา 29 บาท
+                </p>
+              </ion-card-content>
+            <button style="margin-bottom:10px" id="addCart" onclick="addCart()" ion-button round outline >ซื้อ</button>
+            </ion-card>
+            <hr style="color:#6D6D6D">
+      </ion-slide>
+      <ion-slide>
+          <ion-card style="box-shadow:none">
+              <img style="height:25vh;width:100%" src="assets/img/nuggets.jpg"/>
+              <ion-card-content>
+                <ion-card-title>
+                  ชุดแมคนักเก็ต
+                  </ion-card-title>
+                <p>
+                  ชุกแมคนักเก็ต ประกอบไปด้วยแฮมเบอร์เกอร์ เฟรนฟราย และ เป๊ปซี่ ราคา 159 บาท
+                </p>
+              </ion-card-content>
+              <button style="margin-bottom:10px" ion-button round outline [color]="colorBuyButton">ซื้อ</button>
+            </ion-card>
+            <hr style="color:#6D6D6D">
+      </ion-slide>
+    </ion-slides>
+
+
+

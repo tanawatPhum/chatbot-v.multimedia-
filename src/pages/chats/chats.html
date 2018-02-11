@@ -1,0 +1,152 @@
+<!-- <ion-header *ngIf="micState=='michide'">
+    <ion-navbar hideBackButton="true">
+        <ion-title text-center>
+            Smart Chat
+  
+        </ion-title>
+    </ion-navbar>
+</ion-header> -->
+<ion-content #content [class.disableScroll-content]="disableScroll" [class.enableScroll-content]="!disableScroll">
+  <!-- <div id="chat-autoscroll"  style="width:100%;height: 100%; overflow: scroll">
+        <div *ngIf="openPopup" class="backdrop">
+            <button (click)="closePopup()" style="position:absolute;right:0;top:1vh" ion-button clear icon-only>
+                    <ion-icon style="color:white" name="close-circle"></ion-icon>
+            </button>
+   
+        </div>
+            <div  [@fadeInUp] *ngIf="openPopup" class="wrapper-alert">
+                <div style="overflow: scroll">
+                  <div *ngIf="templateJson">
+                        <ion-slides *ngFor="let data of templateJson">
+                            <ion-slide>
+                                <iframe style="height:50vh;width:100%"  *ngIf="data.tag=='video'" [src]="data.source|safeHtml:'resourceUrl'" frameborder='0' allowfullscreen></iframe>
+                            </ion-slide>
+                        </ion-slides>
+                    </div> 
+                </div>
+            </div>  -->
+  <!--opacity: 0.2;-->
+  <div id="chat-autoscroll" style="padding:16px;height:100%;overflow-y:scroll">
+    <div [class.opacity]="openPopover" *ngFor="let message of allMessages;let i = index">
+        <message  [message]="message" (actionEmitter)="actionUpdate($event)" ></message>
+    </div>
+  </div>
+  <!-- <page-popover-content (actionEmitter)="actionUpdate($event)" *ngIf="false" ></page-popover-content> -->
+  <page-popover [stopYoutube]="stopYoutube" [messageWait]="messageWait" [playYoutube]="playYoutube" [openPopoverContent]="openPopoverContent"  [openBackDrop]="openBackDrop" [nextSlide]="nextSlide" [message]="currentMessages" (actionEmitter)="actionUpdate($event)" *ngIf="openPopover"></page-popover>
+  <!-- <div *ngIf="loading">
+            <img class="img-for-bot" src="assets/img/bot.png">
+            <div class="message-box-left-noborder">
+                <span><strong>bot</strong></span>
+                <p class="margin-0"><ion-spinner name="dots"></ion-spinner></p>
+            </div>
+        </div> -->
+  <!-- </div> -->
+
+
+
+
+
+
+
+
+
+
+  <!-- <div class="alert-wrapper" style="opacity: 1; transform: scale(1);">
+                    <ion-slides>
+                            <ion-slide>
+                              <h1>Slide 1</h1>
+                            </ion-slide>
+                            <ion-slide>
+                              <h1>Slide 2</h1>
+                            </ion-slide>
+                            <ion-slide>
+                              <h1>Slide 3</h1>
+                            </ion-slide>
+                          </ion-slides>
+            </div> -->
+
+
+  <!-- <div [@fadeInUp] *ngIf="micState=='micshow'">
+            <div class="mic-resulttext">{{inputMessageMic}}</div>
+            <div *ngFor="let message of currentConversationMessages;let i = index" (selectItemEmitter)="selectItemUpdate($event)">
+                <message (messageEmitter)="messageUpdate($event)" [message]="message" [typeOfChat]="'mic'"></message>
+            </div>
+            <div *ngIf="loading">
+                <img class="img-for-bot" src="assets/img/bot.png">
+                <div class="message-box-left-noborder">
+                    <span><strong>bot</strong></span>
+                    <p class="margin-0"><ion-spinner name="dots"></ion-spinner></p>
+                </div>
+            </div>
+    </div> -->
+  <!-- <div [@fadeInUp] *ngIf="loading" class="mic-content-loading">
+            <img style="height:100px;width:100px" src="assets/img/loading.gif">
+    </div> -->
+
+
+
+</ion-content>
+<ion-footer class="footer-border" *ngIf="!hideFooter">
+  <ion-toolbar>
+      <ion-row>
+        <ion-col col-12 text-center>
+          <ion-slides #Sildes (ionSlideDidChange)="slideChanged()">
+            <ion-slide>
+                    <ion-icon [class.disable-mic]="disableMic" (click)="mic()" [class.color-active]="openBackDrop" class="icon-mic" name="ios-mic-outline"></ion-icon>
+                    <div [class.disable-mic]="disableMic"  [class.mic-active]="openBackDrop"></div>
+            </ion-slide>
+            <ion-slide>
+              <ion-item style="background:transparent">
+                <ion-input (ionChange)="checkChange(inputMessage)" (ionFocus)="checkFocus()" [(ngModel)]="inputMessage" placeholder="Text Input"></ion-input>
+                <button ion-button clear item-right (click)="send(inputMessage)"><ion-icon style="font-size:2.4rem" color="primary" name="send"></ion-icon></button>
+              </ion-item>
+              <!-- <ion-textarea (keyup)="onKey()" [disabled]="loading" (ionChange)="inputMessageChange()" [(ngModel)]="inputMessage" placeholder="Type your message"></ion-textarea> -->
+            </ion-slide>
+          </ion-slides>
+        </ion-col>
+      </ion-row>
+  </ion-toolbar>
+</ion-footer>
+<!-- <ion-footer> -->
+<!-- <ion-grid class="input-wrap">
+                <ion-row class="background-white ">
+                    <ion-col col-2>
+                        <button [disabled]="loading" ion-button clear icon-only item-right>
+                            <ion-icon  class="happy"  name="md-happy"></ion-icon>
+                        </button>
+                    </ion-col>
+                    <ion-col col-8>
+                        <ion-textarea (keyup)="onKey()" [disabled]="loading" (ionChange)="inputMessageChange()" [(ngModel)]="inputMessage" placeholder="Type your message"></ion-textarea>
+                    </ion-col>
+                    <ion-col col-2>
+                        <button [disabled]="loading" ion-button clear icon-only item-right (click)="inputByClick()"> 
+                            <ion-icon style="color:#6D6D6D" name="{{iconHandleInput}}"></ion-icon>
+                        </button>
+                    </ion-col>
+                    <ion-col col-12 class="{{micState}}">
+                        <div *ngIf="micState=='micshow'" class="icon-mic"></div>
+                        <div *ngIf="micState=='micshow'" class="active"></div>
+                    </ion-col>    
+            
+                </ion-row>
+            </ion-grid>
+    <emoji-picker *ngIf="_isOpenEmojiPicker" [(ngModel)]="editorMsg"></emoji-picker> -->
+<!-- <div *ngIf="micState=='micshow'">
+        <ion-row >
+            <ion-col style="position:absolute;bottom:50px">
+            <button [disabled]="loading" (click)="closeMic()" ion-button style="background:white;box-shadow:none;margin-left:30px;z-index:100;float:left">
+                    <ion-icon style="color:#DADADA;font-size:3em" ios="ios-close" md="md-close" ></ion-icon>
+                </button>
+            </ion-col>
+            <ion-col style="position:absolute;bottom:50px">
+            <div  class="mic-icon {{micColor}} {{micActive}}" (click)="inputByClick()"></div>
+            <div class="{{micActive}}" ></div>
+            </ion-col>
+            <ion-col style="position:absolute;bottom:50px">
+            <button [disabled]="loading" (click)="displayInput()" ion-button style="background:white;box-shadow:none;margin-right:30px;;z-index:100;float:right">
+                    <ion-icon style="color:#DADADA;font-size:3em" ios="ios-create" md="md-create"  ></ion-icon>
+                </button>
+            </ion-col>
+        </ion-row>
+    </div> -->
+<!-- </ion-footer> -->
